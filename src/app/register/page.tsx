@@ -120,7 +120,7 @@ export default function RegisterPage() {
                     </form>
 
                     <p className="text-xs text-zinc-500 text-center">
-                        May account ka na?{" "}
+                        Already have an account?{" "}
                         <Link href="/login" className="text-blue-400 hover:underline">
                             Log in
                         </Link>
