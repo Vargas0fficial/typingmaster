@@ -3,6 +3,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import type { GameResult } from "@prisma/client";
 
 export interface QuickStats {
     avgWpm: number;
@@ -39,7 +40,7 @@ export async function getQuickStats(): Promise<QuickStats> {
         return { avgWpm: 0, bestWpm: 0, totalTests: 0, avgAcc: 100 };
     }
 
-    const results = await prisma.gameResult.findMany({
+    const results: GameResult[] = await prisma.gameResult.findMany({
         where: { userId: session.user.id },
     });
 
@@ -47,9 +48,9 @@ export async function getQuickStats(): Promise<QuickStats> {
         return { avgWpm: 0, bestWpm: 0, totalTests: 0, avgAcc: 100 };
     }
 
-    const totalWpm = results.reduce((sum: number, r) => sum + r.wpm, 0);
-    const totalAcc = results.reduce((sum: number, r) => sum + r.accuracy, 0);
-    const bestWpm = Math.max(...results.map((r) => r.wpm));
+    const totalWpm = results.reduce((sum: number, r: GameResult) => sum + r.wpm, 0);
+    const totalAcc = results.reduce((sum: number, r: GameResult) => sum + r.accuracy, 0);
+    const bestWpm = Math.max(...results.map((r: GameResult) => r.wpm));
 
     return {
         avgWpm: Math.round(totalWpm / results.length),
