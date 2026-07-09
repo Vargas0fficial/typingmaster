@@ -1,0 +1,28 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           String       @id @default(uuid())
+  username     String       @unique
+  passwordHash String
+  avatar       String       @default("target")
+  avatarImage  String?
+  createdAt    DateTime     @default(now())
+  gameResults  GameResult[]
+}
+
+model GameResult {
+  id        String   @id @default(uuid())
+  wpm       Int
+  accuracy  Int
+  errors    Int
+  createdAt DateTime @default(now())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
