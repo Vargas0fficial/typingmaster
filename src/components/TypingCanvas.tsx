@@ -13,7 +13,7 @@ interface TypingCanvasProps {
     wordMode: WordMode;
     onModeChange: (mode: WordMode) => void;
     onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    inputRef: RefObject<HTMLInputElement>;
+    inputRef: RefObject<HTMLInputElement | null>;
 }
 
 const MODE_OPTIONS: { value: WordMode; label: string }[] = [
