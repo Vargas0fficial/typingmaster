@@ -47,8 +47,8 @@ export async function getQuickStats(): Promise<QuickStats> {
         return { avgWpm: 0, bestWpm: 0, totalTests: 0, avgAcc: 100 };
     }
 
-    const totalWpm = results.reduce((sum, r) => sum + r.wpm, 0);
-    const totalAcc = results.reduce((sum, r) => sum + r.accuracy, 0);
+    const totalWpm = results.reduce((sum: number, r) => sum + r.wpm, 0);
+    const totalAcc = results.reduce((sum: number, r) => sum + r.accuracy, 0);
     const bestWpm = Math.max(...results.map((r) => r.wpm));
 
     return {
